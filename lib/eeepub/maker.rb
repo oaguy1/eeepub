@@ -76,7 +76,7 @@ module EeePub
       Dir.mktmpdir do |dir|
         @files.each do |file|
           FileUtils.mkdir_p(File.join(dir, file[:dir])) if file[:dir]
-          FileUtils.cp(file[:path], File.join(dir, (file[:dir] || '')))
+          FileUtils.cp(file[:path].gsub(/\.htm(l?)#.*$/){".htm"+$1}, File.join(dir, (file[:dir] || '')))
         end
 
         NCX.new(
